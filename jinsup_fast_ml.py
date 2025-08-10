@@ -100,6 +100,14 @@ class JinsupFastML:
             )
 
         return split
+    
+    @staticmethod
+    def data_to_split(
+        X_train,y_train,X_test,y_test
+    ):
+        Split = namedtuple("Split", "X_train X_test y_train y_test")
+        return Split(X_train, X_test, y_train, y_test)
+    
 
     # 최고의 모델 찾기 (기본적으로 상위 5개 출력)
     @staticmethod
