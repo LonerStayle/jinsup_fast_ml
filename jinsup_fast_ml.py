@@ -14,9 +14,10 @@ from sklearn.ensemble import (
     GradientBoostingRegressor,
     RandomForestClassifier,
     GradientBoostingClassifier,
+    AdaBoostClassifier
 )
 from typing import Literal,Any
-from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error, classification_report
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error, classification_report, f1_score
 from datetime import datetime
 from optuna.samplers import TPESampler
 import joblib
@@ -148,14 +149,21 @@ class JinsupFastML:
             )
 
             random_state = 42
-
+            result_scoue = 0
             if task == "classification":
+
                 if model_type == "RandomForest":
                     model = RandomForestClassifier(
                         n_estimators=trial.suggest_int("n_estimators", 100, 500),
                         max_depth=trial.suggest_int("max_depth", 3, 20),
                         random_state=random_state,
                     )
+                elif model_type == "AdaBoostClassifier":
+                    model = AdaBoostClassifier(
+                        n_estimators=trial.suggest_int("n_estimators", 50, 500),
+                        learning_rate=trial.suggest_float("learning_rate", 0.01, 1.0),
+                        random_state=random_state,
+                    )        
                 elif model_type == "GradientBoost":
                     model = GradientBoostingClassifier(
                         n_estimators=trial.suggest_int("n_estimators", 100, 500),
@@ -199,7 +207,11 @@ class JinsupFastML:
 
             model.fit(split.X_train, split.y_train)
             y_pred = model.predict(split.X_test)
-            return r2_score(split.y_test, y_pred)
+            if task == "classification":
+                result_score = f1_score(split.y_test, y_pred)
+            else:
+                result_score = r2_score(split.y_test, y_pred)
+            return result_score
         
         study = optuna.create_study(direction="maximize",
                                     sampler=TPESampler(seed=42))
