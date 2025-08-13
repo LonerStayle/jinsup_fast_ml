@@ -1,6 +1,6 @@
 [project]
 name = "jinsup-fast-ml"
-version = "0.1.4"
+version = "0.1.6"
 description = "Wanted AI Agent - Jinsup Fast ML"
 authors = [{ name="Seobi ", email="dlwlstjq410@gmail.com" }]
 readme = "README.md"
@@ -10,6 +10,7 @@ dependencies = [
     "lazypredict>=0.2.16",
     "lightgbm>=4.6.0",
     "optuna>=4.4.0",
+    "torch>=2.8.0",
     "xgboost>=3.0.4",
 ]
 
