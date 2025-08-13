@@ -6,6 +6,12 @@ authors = [{ name="Seobi ", email="dlwlstjq410@gmail.com" }]
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
+dependencies = [
+    "lazypredict>=0.2.16",
+    "lightgbm>=4.6.0",
+    "optuna>=4.4.0",
+    "xgboost>=3.0.4",
+]
 
 [[tool.uv.index]]
 name = "testpypi"
