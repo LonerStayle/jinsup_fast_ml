@@ -1,8 +1,12 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "jinsup-fast-ml"
-version = "0.1.6"
+version = "0.1.7"
 description = "Wanted AI Agent - Jinsup Fast ML"
-authors = [{ name="Seobi ", email="dlwlstjq410@gmail.com" }]
+authors = [{ name="Seobi", email="dlwlstjq410@gmail.com" }]
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.10"
@@ -10,12 +14,16 @@ dependencies = [
     "lazypredict>=0.2.16",
     "lightgbm>=4.6.0",
     "optuna>=4.4.0",
-    "torch>=2.8.0",
+    "torch>=2.7.1",        # torchvision 0.22.1과 호환 맞추려면 2.7.1 권장
     "xgboost>=3.0.4",
 ]
 
+[tool.setuptools.package-dir]
+"" = "src"                 # ★ src 레이아웃
+
 [tool.setuptools.packages.find]
-include = ["jinsup_fast_ml*"]   # jinsup_fast_ml만 수집
+where = ["src"]
+include = ["jinsup_fast_ml*"]
 exclude = ["global_device*", "tests*", "examples*"]
 
 [[tool.uv.index]]
