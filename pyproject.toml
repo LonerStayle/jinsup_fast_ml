@@ -14,6 +14,10 @@ dependencies = [
     "xgboost>=3.0.4",
 ]
 
+[tool.setuptools.packages.find]
+include = ["jinsup_fast_ml*"]   # jinsup_fast_ml만 수집
+exclude = ["global_device*", "tests*", "examples*"]
+
 [[tool.uv.index]]
 name = "testpypi"
 url = "https://test.pypi.org/simple/"
